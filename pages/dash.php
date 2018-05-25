@@ -55,7 +55,7 @@ if($_SESSION['pseudo'] == null){
             <div class="card-header">
               <i class="fa fa-area-chart"></i> Nombre de Matchs</div>
             <div class="card-body text-center" style="font-size: 20px;">
-              <p id="numberOfMatch" width="100%">5</p>
+              <p id="numberOfMatch" width="100%"></p>
             </div>
           </div>
         </div>

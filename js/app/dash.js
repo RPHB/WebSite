@@ -1,5 +1,6 @@
 getAllUsersNumber();
 getAllBetsNumber();
+getAllMatchsNumber();
 getAllBets();
 getAllBetsByDate();
 
@@ -23,6 +24,16 @@ function getAllBetsNumber(){
 	    type: "GET"
 	}).done(function(data){
 	    $('#numberOfBets').text(data["count(*)"]);
+	});
+}
+
+function getAllMatchsNumber(){
+	var myUrl = ROUTE_STATISTICS + "/getAllMatchsNumber";
+	$.ajax({
+	    url: myUrl,
+	    type: "GET"
+	}).done(function(data){
+	    $('#numberOfMatch').text(data["count(*)"]);
 	});
 }
 
