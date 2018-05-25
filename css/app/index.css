@@ -1,0 +1,23 @@
+#loginPanelConnexion {
+    background-color: rgba(80,80,80,0.5);
+    margin-top: 10%;
+    padding: 20px;
+    border-radius: 20px;
+}
+
+#overlay {
+  position: absolute;
+  height: 100%;
+  min-height: 35rem;
+  width: 100%;
+  background-color: #808080;
+  opacity: 0.5;
+  z-index: -1;
+}
+
+html, body {
+  height: 100%;
+  min-height: 35rem;
+  color: white;
+  overflow: hidden;
+}
