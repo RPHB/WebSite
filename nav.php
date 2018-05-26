@@ -8,7 +8,7 @@
       <ul class="navbar-nav navbar-sidenav" id="exampleAccordion">
         <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Dashboard">
           <a class="nav-link" href="dash.php">
-            <i class="oi oi-dashboard"></i>
+            <i class="oi oi-bar-chart"></i>
             <span class="nav-link-text">&nbsp;Dashboard</span>
           </a>
         </li>

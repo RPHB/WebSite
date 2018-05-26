@@ -8,6 +8,14 @@ function getUsers(){
     });
 }
 
+function getBetUsers(id){
+    return $.ajax({
+       url : ROUTE_BETS + "/getForUser/" + id,
+       type : 'GET',
+       dataType : 'json',
+    });
+}
+
 function createUser(pseudo, password, email){
     return $.ajax({
        url : ROUTE_USERS + "/create/" + pseudo + "/" + password + "/" + email,
@@ -31,3 +39,4 @@ function deleteUser(id){
        dataType : 'json',
     });
 }
+

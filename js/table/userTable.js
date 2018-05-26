@@ -61,6 +61,9 @@ function initTableUsers(allUsers){
 function operateFormatterModels(value, row, index) {
 	return [
         '<center>',
+        '<a class="betUser" title="Bets">',
+        '<span class="oi oi-menu" aria-hidden="true"></span>',
+        '</a>&nbsp;&nbsp;&nbsp;',
         '<a class="modifyUser" title="Editer">',
 	    '<span class="oi oi-pencil" aria-hidden="true"></span>',
 	    '</a>&nbsp;&nbsp;&nbsp;',
@@ -72,6 +75,62 @@ function operateFormatterModels(value, row, index) {
 
 // Méthode appelée lorsque l'utilisateur clique sur les boutons "supprimer" ou "éditer" un utilisateur
 window.operateEventsModels = {
+    'click .betUser': function (e, value, row, index) {
+        $('#betUserBody').html('<table id="usersBetTable"></table>');
+        $("#nameUserForBets").val(row.pseudo);
+
+        getBetUsers(row.id)
+        .then(function(bets){
+            var jsonTable = [];
+            console.log(bets);
+
+            for(var bet in bets){
+                if(bets[bet].isPayed == 1){
+                    bets[bet].isPayed = "Oui";
+                } else {
+                    bets[bet].isPayed = "Non";
+                }
+                
+                jsonTable.push({
+                    idMatch : bets[bet].idMatch,
+                    tokens : bets[bet].tokens,
+                    choice : bets[bet].choice,
+                    date : bets[bet].date.split('T')[0],
+                    isPayed : bets[bet].isPayed
+                });
+            }
+
+            $('#usersBetTable').bootstrapTable({
+                pagination : true,
+                pageSize : 10,
+                search : true,
+                columns: [{
+                    field: 'idMatch',
+                    title: 'Match',
+                    sortable : true
+                }, {
+                    field: 'tokens',
+                    title: 'Jetons',
+                    sortable : true
+                }, {
+                    field: 'choice',
+                    title: 'Choix',
+                    sortable : true
+                }, {
+                    field: 'date',
+                    title: 'Date',
+                    sortable : true
+                }, {
+                    field: 'isPayed',
+                    title: 'Payé',
+                    sortable : true
+                }],
+                data : jsonTable
+            });
+            //on fait poper le modal modif utilisateur
+            $("#Bets_For_User").modal('show');
+        });
+    },
     'click .modifyUser': function (e, value, row, index) {
         
     	//On met les champs du modal à vide

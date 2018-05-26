@@ -79,20 +79,38 @@ function getAllBetsByDate(){
 	    url: myUrl,
 	    type: "GET"
 	}).done(function(data){
+		var DateVar = new Date();
+		DateVar.setDate(DateVar.getDate()-10);
+
 		var nbdate = [];
-		var label = []
+		var label = [];
+
+		//Liste Date des 10 dernier Jour
+		for(i = 0; i < 10; i++){
+			var dateYear = DateVar.getFullYear();
+			var dateMonth = DateVar.getMonth() + 1;
+			var dateDay = DateVar.getDate();
+
+			var DateStart = dateYear+"-";
+			if(dateMonth.toString().length == 1){
+				DateStart += "0";
+			}
+			DateStart +=  dateMonth + "-";
+			if(dateDay.toString().length == 1){
+				DateStart += "0";
+			}
+			DateStart +=  dateDay;
+			label.push(DateStart);
+			nbdate.push(0);
+			DateVar.setDate(DateVar.getDate()+1);
+		}
+		
 		for(i = 0; i < data.length; i++){
-			var exist = 0;
 			var elementDate = data[i].date.split('T')[0];
 			for(j = 0; j < label.length; j++){
 				if(label[j] == elementDate){
 					nbdate[j]++;
-					exist++;
 				}
-			}
-			if(exist == 0){
-				label.push(elementDate);
-				nbdate.push(1);
 			}
 		}
 
@@ -119,5 +137,8 @@ function getAllBetsByDate(){
 		        }
 		    }
 		});
+
+
+
 	});
 }
