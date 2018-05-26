@@ -2,7 +2,7 @@
 
 function getTeams(){
     return $.ajax({
-       url : ROUTE_TEAMS + "/getAllTeam",
+       url : ROUTE_TEAMS + "/getAll",
        type : 'GET',
        dataType : 'json',
     });
@@ -16,9 +16,25 @@ function getBetTeam(id){
     });
 }
 
-function createTeam(id, name, idSport){
+function getTeamName(id){
     return $.ajax({
-       url : ROUTE_TEAMS + "/create/" + id + "/" + name + "/" + idSport,
+       url : ROUTE_EVENTS + "/getTeamName/" + id,
+       type : 'GET',
+       dataType : 'json',
+    });
+}
+
+function getId(teamName){
+    return $.ajax({
+       url : ROUTE_EVENTS + "/getId/" + teamName,
+       type : 'GET',
+       dataType : 'json',
+    });
+}
+
+function createTeam(name, idSport){
+    return $.ajax({
+       url : ROUTE_TEAMS + "/create/" + name + "/" + idSport,
        type : 'POST',
        dataType : 'json',
     });
