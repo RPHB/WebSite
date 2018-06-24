@@ -82,7 +82,6 @@ window.operateEventsModels = {
         getBetUsers(row.id)
         .then(function(bets){
             var jsonTable = [];
-            console.log(bets);
 
             for(var bet in bets){
                 if(bets[bet].isPayed == 1){

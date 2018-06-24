@@ -5,11 +5,63 @@ getMatchs()
 
 
 function initTableMatchs(allMatchs){ 
+    var teams;
+    $.ajax({
+       url : ROUTE_TEAMS + "/getAll",
+       type : 'GET',
+       dataType : 'json',
+       async: false,
+    }).done(function(data){
+        teams = data;
+    });
+
+    var events;
+    $.ajax({
+       url : ROUTE_EVENTS + "/getAll",
+       type : 'GET',
+       dataType : 'json',
+       async: false,
+    }).done(function(data){
+        console.log(data);
+        events = data;
+    });
     
 	var jsonArray = [];
     for(var match in allMatchs){
+        for(i = 0; i < teams.length; i++){
+            if(allMatchs[match].idTeam1 == teams[i].id){
+                allMatchs[match].idTeam1 = teams[i].name;
+            }
+
+            if(allMatchs[match].idTeam2 == teams[i].id){
+                allMatchs[match].idTeam2 = teams[i].name;
+            }
+        }
+
+        for(i = 0; i < events.length; i++){
+            if(allMatchs[match].idEvent == events[i].id){
+                allMatchs[match].idEvent = events[i].name;
+            }
+        }
+
+        if(allMatchs[match].sport == 0){
+            allMatchs[match].sport = "FootBall";
+        }
+
+        if(allMatchs[match].sport == 1){
+            allMatchs[match].sport = "Rugby";
+        }
+
+        if(allMatchs[match].sport == 2){
+            allMatchs[match].sport = "HandBall";
+        }
+
+        if(allMatchs[match].result == 0){
+            allMatchs[match].result = "Pas encore Joué";
+        }
 
         jsonArray.push({
+            date : allMatchs[match].date.split('T')[0],
             idEvent : allMatchs[match].idEvent,
             idTeam1 : allMatchs[match].idTeam1,
             idTeam2 : allMatchs[match].idTeam2,
