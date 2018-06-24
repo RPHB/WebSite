@@ -1,9 +1,9 @@
 /* Ficher de creations du Bootstrap Table User */
+/* Ficher de creations du Bootstrap Table User */
 getEvents()
     .then(function(data){
         initTableEvents(data);
     });
-
 
 function initTableEvents(allEvents){ 
     // Tableau de Données
@@ -14,7 +14,6 @@ function initTableEvents(allEvents){
             id : allEvents[event].id,
             name : allEvents[event].name
         });
-        
     }
 
 	$('#eventsTable').bootstrapTable({
@@ -22,7 +21,7 @@ function initTableEvents(allEvents){
 	    pageSize : 10,
 	    search : true,
 	    columns: [{
-	        field: 'Name',
+	        field: 'name',
 	        title: 'Nom',
             sortable : true,
 	    }, {
@@ -52,7 +51,6 @@ function operateFormatterModels(value, row, index) {
 // Méthode appelée lorsque l'utilisateur clique sur les boutons "supprimer" ou "éditer" un utilisateur
 window.operateEventsModels = {
     'click .modifyEvent': function (e, value, row, index) {
-        
     	//On met les champs du modal à vide
     	$("#editName").empty();
     	
@@ -62,21 +60,19 @@ window.operateEventsModels = {
         
         //on fait poper le modal modif utilisateur
         $('#Edit_Event_Modal').modal('show');
-        
 
     },
     'click .deleteEvent': function (e, value, row, index) {
         // Pop-up de confirmation
         swal({
-          title: "Etes-vous sûr de vouloir supprimer l'évènement : "+row.username+"?",
-          text: "Supprimer un évènement supprimera aussi tout ses paris",
+          title: "Etes-vous sûr de vouloir supprimer l'évènement : "+row.name+"?",
           icon: "warning",
           buttons: true,
           dangerMode: true,
         })
         .then((willDelete) => {
           if (willDelete) {
-            deleteUser(row.id).then(function(){
+            deleteEvent(row.id).then(function(){
                 swal("Success!", "Évènement Supprimé", "success")
                 .then((data) =>{
                     location.reload();
@@ -89,14 +85,14 @@ window.operateEventsModels = {
             swal("OK !","Évènement Non Supprimé !", "success");
           }
         });
-
-    },
+    }   
     
 };
 
 function editEvent(){
     var id = $("#idEvent").text();
-    var name = $("#editName").text();
+    var name = $("#editName").val();
+    console.log(name + " " + id);
     updateEvent(id, name)
     .then(function(data){
         swal("Success!", "Évènement Modifié", "success")
@@ -107,8 +103,7 @@ function editEvent(){
 }
 
 function addEvent(){
-    var name = $("#addName").text();
-
+    var name = $("#addName").val();
     createEvent(name)
     .then(function(data){
         swal("Success!", "Évènement Ajouté", "success")

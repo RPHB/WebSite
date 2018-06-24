@@ -25,6 +25,19 @@ function initTableMatchs(allMatchs){
         console.log(data);
         events = data;
     });
+
+    /*
+    var sport;
+    $.ajax({
+       url : ROUTE_EVENTS + "/getAll",
+       type : 'GET',
+       dataType : 'json',
+       async: false,
+    }).done(function(data){
+        console.log(data);
+        events = data;
+    });*/
+
     
 	var jsonArray = [];
     for(var match in allMatchs){
@@ -132,10 +145,7 @@ function initTableMatchs(allMatchs){
 //Méthode pour ajouter deux icones d'action à la fin d'une ligne du tableau des utilisateurs
 function operateFormatterModels(value, row, index) {
 	return [
-        '<center><a class="viewModel" title="View">',
-        '<span class="oi oi-eye" aria-hidden="true"></span>',
-	    '</a>&nbsp;&nbsp;&nbsp;',
-        '<a class="modifyModel" title="Editer">',
+        '<center><a class="modifyModel" title="Editer">',
 	    '<span class="oi oi-pencil" aria-hidden="true"></span>',
 	    '</a>&nbsp;&nbsp;&nbsp;',
 	    '<a class="deleteChapter" title="Supprimer">',

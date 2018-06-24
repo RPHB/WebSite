@@ -10,26 +10,11 @@
 
 })(jQuery);
 
-/*
-function validateEmail(email) {
-    var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-    return re.test(String(email).toLowerCase());
-}
-*/
 function connectMe(){
     var email = $("#emailConnexion").val();
     var pwd = $("#pwdConnexion").val();
     var errrors = 0;
     
-    /*
-    if(!validateEmail(email)){
-        errrors++;
-    }
-    
-    if(pwd < 8){
-        errrors++;
-    }
-    */
     var myUrl = ROUTE_USERS + "/connect/" + email + "/" + pwd;
     console.log(email + " " + pwd);
     
@@ -37,8 +22,8 @@ function connectMe(){
         url: myUrl,
         type: "GET",
     }).done(function(data){
-        console.log(data);
-        if(data == "true"){
+        data = JSON.parse(data);
+        if(data.res == true){
             $.ajax({
             url: "./connexionSessionSet.php",
             type: "POST",
@@ -47,8 +32,7 @@ function connectMe(){
                 document.location.href="./pages/dash.php"
             });
         } else {
-            alert("Combinaison Pseudo / Mot de passe incorecte");
-            console.log("ko");
+            swal("Erreur", "Combinaison Pseudo / Mot de passe incorecte", "error");
         }
     });
 

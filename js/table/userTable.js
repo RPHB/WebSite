@@ -59,18 +59,30 @@ function initTableUsers(allUsers){
 
 // Méthode pour ajouter deux icones d'action à la fin d'une ligne du tableau des utilisateurs
 function operateFormatterModels(value, row, index) {
-	return [
-        '<center>',
-        '<a class="betUser" title="Bets">',
-        '<span class="oi oi-menu" aria-hidden="true"></span>',
-        '</a>&nbsp;&nbsp;&nbsp;',
-        '<a class="modifyUser" title="Editer">',
-	    '<span class="oi oi-pencil" aria-hidden="true"></span>',
-	    '</a>&nbsp;&nbsp;&nbsp;',
-	    '<a class="deleteUser" title="Supprimer">',
-	    '<span class="oi oi-x" aria-hidden="true"></span>',
-	    '</a></center>'
-	].join('');
+    if(row.admin == "Administrateur"){
+    	return [
+            '<center>',
+            '<a class="betUser" title="Bets">',
+            '<span class="oi oi-menu" aria-hidden="true"></span>',
+            '</a>&nbsp;&nbsp;&nbsp;',
+            '<a class="modifyUser" title="Editer">',
+    	    '<span class="oi oi-pencil" aria-hidden="true"></span>',
+    	    '</a></center>'
+    	].join('');
+    } else {
+        return [
+            '<center>',
+            '<a class="betUser" title="Bets">',
+            '<span class="oi oi-menu" aria-hidden="true"></span>',
+            '</a>&nbsp;&nbsp;&nbsp;',
+            '<a class="modifyUser" title="Editer">',
+            '<span class="oi oi-pencil" aria-hidden="true"></span>',
+            '</a>&nbsp;&nbsp;&nbsp;',
+            '<a class="deleteUser" title="Supprimer">',
+            '<span class="oi oi-x" aria-hidden="true"></span>',
+            '</a></center>'
+        ].join('');
+    } 
 }
 
 // Méthode appelée lorsque l'utilisateur clique sur les boutons "supprimer" ou "éditer" un utilisateur
@@ -78,6 +90,26 @@ window.operateEventsModels = {
     'click .betUser': function (e, value, row, index) {
         $('#betUserBody').html('<table id="usersBetTable"></table>');
         $("#nameUserForBets").val(row.pseudo);
+
+        var matchs;
+        $.ajax({
+           url : ROUTE_MATCHS + "/getAll",
+           type : 'GET',
+           dataType : 'json',
+           async: false,
+        }).done(function(data){
+            matchs = data;
+        });
+
+        var team;
+        $.ajax({
+           url : ROUTE_TEAMS + "/getAll",
+           type : 'GET',
+           dataType : 'json',
+           async: false,
+        }).done(function(data){
+            team = data;
+        });
 
         getBetUsers(row.id)
         .then(function(bets){
@@ -89,6 +121,33 @@ window.operateEventsModels = {
                 } else {
                     bets[bet].isPayed = "Non";
                 }
+
+                for(var m in matchs){
+                    if(bets[bet].idMatch == matchs[m].id){
+                        team1 = matchs[m].idTeam1;
+                        team2 = matchs[m].idTeam2;
+                        for(var t in team){
+                            if(team1 == team[t].id){
+                                team1 = team[t].name;
+                            }
+                            if(team2 == team[t].id){
+                                team2 = team[t].name;
+                            }
+                        }
+                        bets[bet].idMatch = team1 + " - " + team2
+                    }
+                }
+
+                if(bets[bet].choice == 0){
+                    bets[bet].choice = team1;
+                }
+                if(bets[bet].choice == 1){
+                    bets[bet].choice = "Match Null";
+                }
+                if(bets[bet].choice == 2){
+                    bets[bet].choice = team2;
+                }
+
                 
                 jsonTable.push({
                     idMatch : bets[bet].idMatch,

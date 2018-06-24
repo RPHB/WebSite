@@ -9,11 +9,27 @@ function initTableTeams(allTeams){
     // Tableau de Données
 	var jsonArray = [];
     for(var team in allTeams){
+
+        if(allTeams[team].sport == 0){
+            allTeams[team].sport = "FootBall";
+        }
+
+        if(allTeams[team].sport == 1){
+            allTeams[team].sport = "Rugby";
+        }
+
+        if(allTeams[team].sport == 2){
+            allTeams[team].sport = "HandBall";
+        }
+
+        if(allTeams[team].result == 0){
+            allTeams[team].result = "Pas encore Joué";
+        }
         
         jsonArray.push({
             id : allTeams[team].id,
             name : allTeams[team].name,
-            idSport : allTeams[team].idSport
+            sport : allTeams[team].sport
         });
         
     }
@@ -31,7 +47,7 @@ function initTableTeams(allTeams){
 	        title: 'Nom',
             sortable : true,
 	    }, {
-	        field: 'idSport',
+	        field: 'sport',
 	        title: 'ID Sport',
             sortable : true,
 	    }, {

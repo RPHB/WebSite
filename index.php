@@ -37,6 +37,7 @@ exit;
         <script src="js/lib/jquery.min.js"></script>
         <script src="js/lib/bootstrap.min.js"></script>
         <script src="js/lib/jquery.vide.min.js"></script>
+        <script src="js/lib/sweetalert.js"></script>
 
 
 
