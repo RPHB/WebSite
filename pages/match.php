@@ -27,8 +27,14 @@ if($_SESSION['pseudo'] == null){
 
         <div class="content-wrapper">
         <div class="container-fluid">
+        <div class="col-md-12">
+            <div class="row">
+                <div class="col-md-11"><h3>Gestion des Matchs</h3></div>
+                <button class="btn btn-secondary col-md-1" data-toggle="modal" data-target="#Add_Match_Modal">Ajouter</button>
+                <div class="col-md-12"><table id="matchsTable"></table></div>
+            </div>
+        </div>
 
-        <table id="matchsTable"></table>
 
         </div>
             <!-- /.container-fluid-->
@@ -67,8 +73,7 @@ if($_SESSION['pseudo'] == null){
 </html>
 
 
-
-<div class="modal" id="Add_Match_Modal" tabindex="-1" role="dialog">
+<div class="modal" id="Edit_Match_Modal" tabindex="-1" role="dialog">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
@@ -79,22 +84,86 @@ if($_SESSION['pseudo'] == null){
       </div>
       <div class="modal-body">
         <div class="button-group">
-            <label>Date :</label>
-                <input type="text" class="form-control text-center" id="editDate" placeholder="Date">             
+
+            <div class="button-group">
+                <label>Cote Equipe 1 :</label>
+                <input type="text" class="form-control text-center" id="editCote1" placeholder="Cote1" >
             </div><br>
 
             <div class="button-group">
-                <label>Match :</label>
-                <input type="text" class="form-control text-center" id="editMatch" placeholder="Match" >
+                <label>Cote Match Null :</label>
+                <input type="text" class="form-control text-center" id="editCote2" placeholder="Cote2" >
             </div><br>
 
             <div class="button-group">
-                <label>Score :</label>
-                <input type="text" class="form-control text-center" id="editScore" placeholder="Score" >
+                <label>Cote Equipe 2 :</label>
+                <input type="text" class="form-control text-center" id="editCote3" placeholder="Cote3" >
             </div><br>
+
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-primary">Save changes</button>
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal" id="ADD_Match_Modal" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Ajouter un Match</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="button-group">
+
+            <div class="button-group">
+                <label>Date :</label>
+                <input type="text" class="form-control text-center" id="addDate" placeholder="Cote1" >
+            </div><br>
+
+            <div class="button-group">
+                <label>Competition:</label>
+                <input type="text" class="form-control text-center" id="addComptetition" placeholder="Cote2" >
+            </div><br>
+
+            <div class="button-group">
+                <label>Equipe 1 :</label>
+                <input type="text" class="form-control text-center" id="addTeam1" placeholder="Cote3" >
+            </div><br>
+
+            <div class="button-group">
+                <label>Equipe 2 :</label>
+                <input type="text" class="form-control text-center" id="addTeam2" placeholder="Cote1" >
+            </div><br>
+
+            <div class="button-group">
+                <label>Cote Equipe 1 :</label>
+                <input type="text" class="form-control text-center" id="addCote1" placeholder="Cote1" >
+            </div><br>
+
+            <div class="button-group">
+                <label>Cote Match Null :</label>
+                <input type="text" class="form-control text-center" id="addCote2" placeholder="Cote2" >
+            </div><br>
+
+            <div class="button-group">
+                <label>Cote Equipe 2 :</label>
+                <input type="text" class="form-control text-center" id="addCote3" placeholder="Cote3" >
+            </div><br>
+
+            <div class="button-group">
+                <label>Sport :</label>
+                <input type="text" class="form-control text-center" id="addSport" placeholder="Cote3" >
+            </div><br>
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" onclick="addNewMatch()">Save changes</button>
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
       </div>
     </div>

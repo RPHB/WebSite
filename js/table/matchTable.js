@@ -22,7 +22,6 @@ function initTableMatchs(allMatchs){
        dataType : 'json',
        async: false,
     }).done(function(data){
-        console.log(data);
         events = data;
     });
 
@@ -57,19 +56,25 @@ function initTableMatchs(allMatchs){
             }
         }
 
-        if(allMatchs[match].sport == 0){
+        if(allMatchs[match].sport == 1){
             allMatchs[match].sport = "FootBall";
         }
 
-        if(allMatchs[match].sport == 1){
+        if(allMatchs[match].sport == 2){
             allMatchs[match].sport = "Rugby";
         }
 
-        if(allMatchs[match].sport == 2){
+        if(allMatchs[match].sport == 3){
             allMatchs[match].sport = "HandBall";
         }
 
         if(allMatchs[match].result == 0){
+            allMatchs[match].result = "Equipe 1";
+        } else if(allMatchs[match].result == 1){
+            allMatchs[match].result = "Match Null";
+        } else if(allMatchs[match].result == 2){
+            allMatchs[match].result = "Equipe 2";
+        } else {
             allMatchs[match].result = "Pas encore Joué";
         }
 
@@ -89,7 +94,7 @@ function initTableMatchs(allMatchs){
     }
 	$('#matchsTable').bootstrapTable({
 	    pagination : true,
-	    pageSize : 10,
+	    pageSize : 15,
 	    search : true,
 	    columns: [{
             field: 'date',
@@ -159,34 +164,50 @@ window.operateEventsModels = {
     'click .modifyModel': function (e, value, row, index) {
         
     	//On met les champs du modal à vide
-    	$("#editDate").empty();
-    	$("#editMatch").empty();
-    	$("#editScore").empty();
+    	$("#editCote1").empty();
+        $("#editCote2").empty();
+        $("#editCote3").empty();
     	
         //On recupere les valeurs du tableau pour les mettres dans les champs
-    	$("#editDate").val(row.date);
-    	$("#editMatch").val(row.match);
-    	$("#editScore").val(row.score);
+        $("#editCote1").val(row.quotation1);
+        $("#editCote2").val(row.quotation2);
+        $("#editCote3").val(row.quotation3);
         
-    	
-        //Déclanchement de la fonction de modification sur le bouton de validation de la Modal
-    	//$("#val_mod").attr("onclick", "editChapterBdd("+ row.match +")");;
         
         //on fait poper le modal modif utilisateur
-        $('#Add_Match_Modal').modal('show');
+        $('#Edit_Match_Modal').modal('show');
         
 
     },
     'click .deleteChapter': function (e, value, row, index) {
-       	if (confirm("Etes-vous sûr de vouloir supprimer le match : "+row.match+"?")) {
-            /*
-		    deletChapter(row.id).then(function(){
-                alert("Chapitre Supprimé");
-                location.reload();
+        // Pop-up de confirmation
+        swal({
+          title: "Etes-vous sûr de vouloir supprimer le match : "+row.idTeam1+" - "+row.idTeam2+"?",
+          text: "Supprimer un match supprimera aussi tout les paris",
+          icon: "warning",
+          buttons: true,
+          dangerMode: true,
+        })
+        .then((willDelete) => {
+          if (willDelete) {
+            deleteMatchs(row.id).then(function(){
+                swal("Success!", "Match Supprimé", "success")
+                .then((data) =>{
+                    location.reload();
+                });
+                
             }).catch(function(){
-                alert("Erreur lors de la suppression du chapitre");
-            });*/
-        }
+                swal("Error!", "Un probleme est survenue lors de la suppression", "error");
+            });
+          } else {
+            swal("OK !","Match Non Supprimé !", "success");
+          }
+        });
+
     },
     
 };
+
+function addNewMatch(){
+
+}

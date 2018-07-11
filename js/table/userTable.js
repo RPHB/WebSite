@@ -15,10 +15,18 @@ function initTableUsers(allUsers){
         } else {
             allUsers[user].admin = "Utilisateur Simple";
         }
+
+        if(allUsers[user].birth != null){
+            allUsers[user].birth = allUsers[user].birth.split('T')[0]
+        }
         
         jsonArray.push({
             id : allUsers[user].id,
             username : allUsers[user].username,
+            lastname : allUsers[user].lastname,
+            firstname : allUsers[user].firstname,
+            address : allUsers[user].address,
+            birth : allUsers[user].birth,
             email : allUsers[user].email,
             tokens : allUsers[user].tokens,
             admin : allUsers[user].admin
@@ -35,6 +43,22 @@ function initTableUsers(allUsers){
 	        title: 'Pseudo',
             sortable : true,
 	    }, {
+            field: 'lastname',
+            title: 'Nom',
+            sortable : true,
+        }, {
+            field: 'firstname',
+            title: 'Prenom',
+            sortable : true,
+        }, {
+            field: 'birth',
+            title: 'Date de Naissance',
+            sortable : true,
+        }, {
+            field: 'address',
+            title: 'Adresse',
+            sortable : true,
+        }, {
 	        field: 'email',
 	        title: 'Email',
             sortable : true,
@@ -64,9 +88,6 @@ function operateFormatterModels(value, row, index) {
             '<center>',
             '<a class="betUser" title="Bets">',
             '<span class="oi oi-menu" aria-hidden="true"></span>',
-            '</a>&nbsp;&nbsp;&nbsp;',
-            '<a class="modifyUser" title="Editer">',
-    	    '<span class="oi oi-pencil" aria-hidden="true"></span>',
     	    '</a></center>'
     	].join('');
     } else {
@@ -148,12 +169,15 @@ window.operateEventsModels = {
                     bets[bet].choice = team2;
                 }
 
+                if(bets[bet].date != null){
+                    bets[bet].date = bets[bet].date.split('T')[0]
+                }
                 
                 jsonTable.push({
                     idMatch : bets[bet].idMatch,
                     tokens : bets[bet].tokens,
                     choice : bets[bet].choice,
-                    date : bets[bet].date.split('T')[0],
+                    date : bets[bet].date,
                     isPayed : bets[bet].isPayed
                 });
             }
@@ -198,11 +222,11 @@ window.operateEventsModels = {
         //On recupere les valeurs du tableau pour les mettres dans les champs
     	$("#idUtilisateur").text(row.id);
     	$("#editPseudo").val(row.username);
+        $("#editLastname").val(row.lastname);
+        $("#editFirstname").val(row.firstname);
+        $("#editAddess").val(row.address);
+        $("#editBirth").val(row.birth);
     	$("#editEmail").val(row.email);
-        
-        if(row.admin == "Administrateur"){
-            $("#editAdmin").prop('checked', true);
-        }
         
         //on fait poper le modal modif utilisateur
         $('#Edit_User_Modal').modal('show');
@@ -242,13 +266,12 @@ function editUser(){
     var id = $("#idUtilisateur").text();
     var pseudo = $("#editPseudo").val();
     var email = $("#editEmail").val();
-    var admin;
-    if($("#editAdmin").is(":checked")){
-        admin = 1;
-    } else {
-        admin = 0;
-    }
-    updateUser(id, pseudo, email, admin)
+    var lastname = $("#editLastname").val();
+    var firstname = $("#editFirstname").val();
+    var address = $("#editAddess").val();
+    var birth = $("#editBirth").val();
+
+    updateUser(id, pseudo, lastname, firstname, address, birth, email)
     .then(function(data){
         swal("Success!", "Utilisateur Modifié", "success")
         .then((data) =>{

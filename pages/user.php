@@ -29,8 +29,8 @@ if($_SESSION['pseudo'] == null){
         <div class="container-fluid">
         <div class="col-md-12">
             <div class="row">
-                <div class="col-md-11"><h3>Gestion Utilisateurs</h3></div>
-                <button class="btn btn-secondary col-md-1" data-toggle="modal" data-target="#Add_User_Modal">Ajouter</button>
+                <div class="col-md-12"><h3>Gestion Utilisateurs</h3></div>
+                <!--<button class="btn btn-secondary col-md-1" data-toggle="modal" data-target="#Add_User_Modal">Ajouter</button>-->
                 <div class="col-md-12"><table id="usersTable"></table></div>
             </div>
         </div>
@@ -106,6 +106,26 @@ if($_SESSION['pseudo'] == null){
                 <label>Pseudo :</label>
                 <input type="text" class="form-control text-center" id="addPseudo" placeholder="Pseudo" >
             </div><br>
+
+            <div class="button-group">
+                <label>Nom :</label>
+                <input type="text" class="form-control text-center" id="addLastname" placeholder="Nom" >
+            </div><br>
+
+            <div class="button-group">
+                <label>Prenom :</label>
+                <input type="text" class="form-control text-center" id="addFirstname" placeholder="Prenom" >
+            </div><br>
+
+            <div class="button-group">
+                <label>Adresse :</label>
+                <input type="text" class="form-control text-center" id="addAddess" placeholder="Adresse" >
+            </div><br>
+
+            <div class="button-group">
+                <label>Date de Naissance :</label>
+                <input type="text" class="form-control text-center" id="addBirth" placeholder="Date de Naissance" >
+            </div><br>
             
             <div class="button-group">
                 <label>Mot de Passe :</label>
@@ -147,14 +167,30 @@ if($_SESSION['pseudo'] == null){
             </div><br>
 
             <div class="button-group">
+                <label>Nom :</label>
+                <input type="text" class="form-control text-center" id="editLastname" placeholder="Nom" >
+            </div><br>
+
+            <div class="button-group">
+                <label>Prenom :</label>
+                <input type="text" class="form-control text-center" id="editFirstname" placeholder="Prenom" >
+            </div><br>
+
+            <div class="button-group">
+                <label>Adresse :</label>
+                <input type="text" class="form-control text-center" id="editAddess" placeholder="Adresse" >
+            </div><br>
+
+            <div class="button-group">
+                <label>Date de Naissance :</label>
+                <input type="text" class="form-control text-center" id="editBirth" placeholder="Date de Naissance" >
+            </div><br>
+
+            <div class="button-group">
                 <label>Email :</label>
                 <input type="text" class="form-control text-center" id="editEmail" placeholder="Email" >
             </div><br>
-            
-            <div class="button-group">
-                <label>Administrateur :</label>
-                <input type="checkbox" id="editAdmin">
-            </div><br>
+
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-primary" onclick="editUser()">Save changes</button>

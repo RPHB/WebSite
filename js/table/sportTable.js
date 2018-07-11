@@ -1,21 +1,21 @@
-/* Ficher de creations du Bootstrap Table Event */
-getEvents()
+/* Ficher de creations du Bootstrap Table Sport */
+getSports()
     .then(function(data){
-        initTableEvents(data);
+        initTableSports(data);
     });
 
-function initTableEvents(allEvents){ 
+function initTableSports(allSport){ 
     // Tableau de Données
 	var jsonArray = [];
-    for(var event in allEvents){
+    for(var sport in allSport){
         
         jsonArray.push({
-            id : allEvents[event].id,
-            name : allEvents[event].name
+            id : allSport[sport].id,
+            name : allSport[sport].name
         });
     }
 
-	$('#eventsTable').bootstrapTable({
+	$('#sportsTable').bootstrapTable({
 	    pagination : true,
 	    pageSize : 10,
 	    search : true,
@@ -26,8 +26,8 @@ function initTableEvents(allEvents){
 	    }, {
 	    	field: 'cellFormater',
 	    	title: 'Actions',
-	    	formatter : operateFormatterModels,
-	    	events : operateEventsModels
+	    	formatter : operateFormatterModel,
+	    	events : operateEventsModel
 	    }],
 	    
 	    data : jsonArray
@@ -35,44 +35,44 @@ function initTableEvents(allEvents){
 }
 
 // Méthode pour ajouter deux icones d'action à la fin d'une ligne du tableau des utilisateurs
-function operateFormatterModels(value, row, index) {
+function operateFormatterModel(value, row, index) {
 	return [
         '<center>',
-        '<a class="modifyEvent" title="Editer">',
+        '<a class="modifySport" title="Editer">',
 	    '<span class="oi oi-pencil" aria-hidden="true"></span>',
 	    '</a>&nbsp;&nbsp;&nbsp;',
-	    '<a class="deleteEvent" title="Supprimer">',
+	    '<a class="deleteSport" title="Supprimer">',
 	    '<span class="oi oi-x" aria-hidden="true"></span>',
 	    '</a></center>'
 	].join('');
 }
 
 // Méthode appelée lorsque l'utilisateur clique sur les boutons "supprimer" ou "éditer" un utilisateur
-window.operateEventsModels = {
-    'click .modifyEvent': function (e, value, row, index) {
+window.operateEventsModel = {
+    'click .modifySport': function (e, value, row, index) {
     	//On met les champs du modal à vide
-    	$("#editName").empty();
+    	$("#editSportName").empty();
     	
         //On recupere les valeurs du tableau pour les mettres dans les champs
-    	$("#idEvent").text(row.id);
-    	$("#editName").val(row.name);
+    	$("#idSport").text(row.id);
+    	$("#editSportName").val(row.name);
         
         //on fait poper le modal modif utilisateur
-        $('#Edit_Event_Modal').modal('show');
+        $('#Edit_Sport_Modal').modal('show');
 
     },
-    'click .deleteEvent': function (e, value, row, index) {
+    'click .deleteSport': function (e, value, row, index) {
         // Pop-up de confirmation
         swal({
-          title: "Etes-vous sûr de vouloir supprimer l'évènement : "+row.name+"?",
+          title: "Etes-vous sûr de vouloir supprimer le sport : "+row.name+"?",
           icon: "warning",
           buttons: true,
           dangerMode: true,
         })
         .then((willDelete) => {
           if (willDelete) {
-            deleteEvent(row.id).then(function(){
-                swal("Success!", "Évènement Supprimé", "success")
+            deleteSports(row.id).then(function(){
+                swal("Success!", "Sport Supprimé", "success")
                 .then((data) =>{
                     location.reload();
                 });
@@ -81,30 +81,31 @@ window.operateEventsModels = {
                 swal("Error!", "Un problème est survenu lors de la suppression", "error");
             });
           } else {
-            swal("OK !","Évènement Non Supprimé !", "success");
+            swal("OK !","Sport Non Supprimé !", "success");
           }
         });
     }   
     
 };
 
-function editEvent(){
-    var id = $("#idEvent").text();
-    var name = $("#editName").val();
-    updateEvent(id, name)
+function editSport(){
+    var id = $("#idSport").text();
+    var name = $("#editSportName").val();
+    console.log(name + " " + id);
+    updateSports(id, name)
     .then(function(data){
-        swal("Success!", "Évènement Modifié", "success")
+        swal("Success!", "Sport Modifié", "success")
         .then((data) =>{
             location.reload();
         });
     });
 }
 
-function addEvent(){
-    var name = $("#addName").val();
-    createEvent(name)
+function addSport(){
+    var name = $("#addSportName").val();
+    createSports(name)
     .then(function(data){
-        swal("Success!", "Évènement Ajouté", "success")
+        swal("Success!", "Sport Ajouté", "success")
         .then((data) =>{
             location.reload();
         });

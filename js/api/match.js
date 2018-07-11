@@ -7,3 +7,11 @@ function getMatchs(){
        dataType : 'json',
     });
 }
+
+function deleteMatchs(id){/*
+	return $.ajax({
+       url : ROUTE_MATCHS + "/getAll",
+       type : 'GET',
+       dataType : 'json',
+    });*/
+}

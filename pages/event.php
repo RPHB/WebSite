@@ -27,14 +27,28 @@ if($_SESSION['pseudo'] == null){
 
         <div class="content-wrapper">
         <div class="container-fluid">
-        <div class="col-md-12">
-            <div class="row">
-                <div class="col-md-11"><h3>Gestion des Évènements</h3></div>
-                <button class="btn btn-secondary col-md-1" data-toggle="modal" data-target="#Add_Event_Modal">Ajouter</button>
-                <div class="col-md-12"><table id="eventsTable"></table></div>
+          <div class="row">
+
+            <div class="col-md-6">
+              <div class="col-md-12">
+                <div class="row">
+                  <div class="col-md-10"><h3>Gestion des Évènements</h3></div>
+                  <button class="btn btn-secondary col-md-2" data-toggle="modal" data-target="#Add_Event_Modal">Ajouter</button>
+                  <div class="col-md-12"><table id="eventsTable"></table></div>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-md-6">
+              <div class="col-md-12">
+                <div class="row">
+                  <div class="col-md-10"><h3>Gestion des Sports</h3></div>
+                  <button class="btn btn-secondary col-md-2" data-toggle="modal" data-target="#Add_Sport_Modal">Ajouter</button>
+                  <div class="col-md-12"><table id="sportsTable"></table></div>
+                </div>
+              </div>
             </div>
         </div>
-        
 
         </div>
             <!-- /.container-fluid-->
@@ -65,28 +79,13 @@ if($_SESSION['pseudo'] == null){
         <script src="../js/config.js"></script>
         <script src="../js/api/event.js"></script>
         <script src="../js/table/eventTable.js"></script>
+
+        <script src="../js/api/sport.js"></script>
+        <script src="../js/table/sportTable.js"></script>
         
     </body>
 </html>
 
-<div class="modal" id="Bets_For_Event" tabindex="-1" role="dialog">
-  <div class="modal-dialog modal-lg" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title">Liste Paris pour <span id="nameTeamForBets"></span></h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        <div id="betTeamBody"></div>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-      </div>
-    </div>
-  </div>
-</div>
 
 
 <div class="modal" id="Add_Event_Modal" tabindex="-1" role="dialog">
@@ -99,14 +98,12 @@ if($_SESSION['pseudo'] == null){
         </button>
       </div>
       <div class="modal-body">
-        <div class="button-group">
-            <div id="idEvent" hidden></div>            
+        <div class="button-group">          
             
             <div class="button-group">
                 <label>Nom :</label>
                 <input type="text" class="form-control text-center" id="addName" placeholder="Nom de l'évènement" >
             </div><br>
-            
         </div>
       </div>
       <div class="modal-footer">
@@ -116,7 +113,6 @@ if($_SESSION['pseudo'] == null){
     </div>
   </div>
 </div>
-
 
 <div class="modal" id="Edit_Event_Modal" tabindex="-1" role="dialog">
   <div class="modal-dialog" role="document">
@@ -135,10 +131,66 @@ if($_SESSION['pseudo'] == null){
                 <label>Nom :</label>
                 <input type="text" class="form-control text-center" id="editName" placeholder="Nom de l'évènement" >
             </div><br>
-
+          </div>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-primary" onclick="editEvent()">Save changes</button>
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+<div class="modal" id="Add_Sport_Modal" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Ajouter un Sport</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="button-group">         
+            
+            <div class="button-group">
+                <label>Nom :</label>
+                <input type="text" class="form-control text-center" id="addSportName" placeholder="Nom du Sport" >
+            </div><br>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" onclick="addSport()">Save changes</button>
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<div class="modal" id="Edit_Sport_Modal" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Modifier un Sport</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="button-group">
+        <div id="idSport" hidden></div>            
+            
+            <div class="button-group">
+                <label>Nom :</label>
+                <input type="text" class="form-control text-center" id="editSportName" placeholder="Nom du Sport" >
+            </div><br>
+          </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" onclick="editSport()">Save changes</button>
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
       </div>
     </div>

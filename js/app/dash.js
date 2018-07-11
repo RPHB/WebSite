@@ -3,6 +3,7 @@ getAllBetsNumber();
 getAllMatchsNumber();
 getAllBets();
 getAllBetsByDate();
+getAllBetsByDateForTokens();
 
 
 
@@ -138,7 +139,97 @@ function getAllBetsByDate(){
 		    }
 		});
 
+	});
+}
 
+function getAllBetsByDateForTokens(){
+	var myUrl = ROUTE_STATISTICS + "/getAllBetsDate";
+	$.ajax({
+	    url: myUrl,
+	    type: "GET"
+	}).done(function(data){
+		var DateVar = new Date();
+		DateVar.setDate(DateVar.getDate()-10);
+
+		var nbdate = [];
+
+		var label = [];
+
+		//Liste Date des 10 dernier Jour
+		for(i = 0; i < 10; i++){
+			var dateYear = DateVar.getFullYear();
+			var dateMonth = DateVar.getMonth() + 1;
+			var dateDay = DateVar.getDate();
+
+			var DateStart = dateYear+"-";
+			if(dateMonth.toString().length == 1){
+				DateStart += "0";
+			}
+			DateStart +=  dateMonth + "-";
+			if(dateDay.toString().length == 1){
+				DateStart += "0";
+			}
+			DateStart +=  dateDay;
+			label.push(DateStart);
+			nbdate.push(0);
+			DateVar.setDate(DateVar.getDate()+1);
+		}
+		
+		for(i = 0; i < data.length; i++){
+			var elementDate = data[i].date.split('T')[0];
+			for(j = 0; j < label.length; j++){
+				if(label[j] == elementDate){
+					if(data[i].isPayed == 1 && data[i].isWin == 0){
+						nbdate[j] += data[i].tokens;
+					}
+
+					if(data[i].isPayed == 1 && data[i].isWin == 1){
+						nbdate[j] -= data[i].tokens;
+					}
+
+				}
+			}
+		}
+
+		var ctx = document.getElementById("tokensWinAndLost").getContext('2d');
+		var myChart = new Chart(ctx, {
+		    type: 'line',
+		    fill: false,
+		    data: {
+		        labels: label,
+		        datasets: [{
+		            label: 'Rapport Jetons Gagné Perdu',
+		            data: nbdate,
+		            backgroundColor: 'rgba(54, 162, 235, 0.2)',
+		            borderColor: 'rgba(54, 162, 235, 1)',
+		            borderWidth: 1
+		        }]
+		    },
+		    options: {
+		        scales: {
+		            yAxes: [{
+		                ticks: {
+		                    beginAtZero:true
+		                }
+		            }]
+		        }
+		    }
+		});
 
 	});
+}
+
+
+function setGift(){
+	var tks = $("#giftTokens").val();
+	if(tks > 0){
+		$.ajax({
+		    url: ROUTE_USERS + "/setGift/" + tks,
+		    type: "post"
+		}).done(function(data){
+		    swal("OK !","Jetons donnée au joueurs !", "success");
+		});
+	} else {
+		swal("ERREUR !","Montant non valide!", "error");
+	}
 }

@@ -63,15 +63,20 @@ if($_SESSION['pseudo'] == null){
         <div class="col-lg-3">
           <div class="card mb-3">
             <div class="card-header">
-              <i class="fa fa-area-chart"></i> Random Number</div>
+              <i class="fa fa-area-chart"></i> Donner des Jetons Aux Joueurs</div>
             <div class="card-body text-center" style="font-size: 20px;">
-              <p id="numberOf" width="100%"></p>
+              <div class="row">
+                <div class="col-lg-8">
+                  <input type="text" class="form-control col-lg-12" id="giftTokens">
+                </div>
+                <div class="col-lg-4">
+                  <button type="button" class="btn btn-info col-lg-12" onclick="setGift()">Gift</button>
+                </div>
+              </div>
             </div>
           </div>
         </div>
-
-
-
+        
       </div>
 
 
@@ -81,11 +86,24 @@ if($_SESSION['pseudo'] == null){
           <!-- Example Bar Chart Card-->
           <div class="card mb-3">
             <div class="card-header">
-              <i class="fa fa-bar-chart"></i> Nombre de Paris par date</div>
+              <i class="fa fa-bar-chart"></i> Nombre de Paris sur les 10 Derniers Jours</div>
             <div class="card-body">
               <div class="row">
                 <div class="col-sm-8 my-auto">
-                  <canvas id="betByDate" width="100" height="50"></canvas>
+                  <canvas id="betByDate" width="100%"></canvas>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Example Bar Chart Card-->
+          <div class="card mb-3">
+            <div class="card-header">
+              <i class="fa fa-bar-chart"></i> Rapport Jetons Gagné et Perdu</div>
+            <div class="card-body">
+              <div class="row">
+                <div class="col-sm-8 my-auto">
+                  <canvas id="tokensWinAndLost" width="100"></canvas>
                 </div>
               </div>
             </div>
@@ -98,7 +116,7 @@ if($_SESSION['pseudo'] == null){
           <!-- Example Pie Chart Card-->
           <div class="card mb-3">
             <div class="card-header">
-              <i class="fa fa-pie-chart"></i> Pourcentage Paries/Sport</div>
+              <i class="fa fa-pie-chart"></i> Pourcentage Paris/Sport</div>
             <div class="card-body">
               <canvas id="betBySport" width="100%" height="100"></canvas>
             </div>
@@ -107,6 +125,14 @@ if($_SESSION['pseudo'] == null){
       </div>
      
     </div>
+
+
+
+
+
+
+
+
 
 
     <!-- /.container-fluid-->
@@ -129,6 +155,7 @@ if($_SESSION['pseudo'] == null){
     <script src="../js/lib/bootstrap.min.js"></script>
     <script src="../js/lib/sb-admin.min.js"></script>
     <script src="../js/lib/chart.js"></script>
+    <script src="../js/lib/sweetalert.js"></script>
 
     <script src="../js/config.js"></script>
     <script src="../js/app/dash.js"></script>

@@ -8,6 +8,8 @@ const ROUTE_EVENTS = API_URL + "/events";
 
 const ROUTE_TEAMS = API_URL + "/teams";
 
+const ROUTE_SPORTS = API_URL + "/sports";
+
 const ROUTE_STATISTICS = API_URL + "/statistics";
 
 const ROUTE_BETS = API_URL + "/bets";

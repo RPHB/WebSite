@@ -27,7 +27,6 @@ function initTableTeams(allTeams){
         }
         
         jsonArray.push({
-            id : allTeams[team].id,
             name : allTeams[team].name,
             sport : allTeams[team].sport
         });
@@ -39,16 +38,12 @@ function initTableTeams(allTeams){
 	    pageSize : 10,
 	    search : true,
 	    columns: [{
-	        field: 'id',
-	        title: 'ID',
-            sortable : true,
-	    }, {
 	        field: 'name',
 	        title: 'Nom',
             sortable : true,
 	    }, {
 	        field: 'sport',
-	        title: 'ID Sport',
+	        title: 'Sport',
             sortable : true,
 	    }, {
 	    	field: 'cellFormater',

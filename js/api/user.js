@@ -24,9 +24,9 @@ function createUser(pseudo, password, email){
     });
 }
 
-function updateUser(id, pseudo, email,admin){
+function updateUser(id, pseudo, lastname, firstname, address, birth, email){
     return $.ajax({
-       url : ROUTE_USERS + "/update/" + id + "/" + pseudo + "/" + email + "/" + admin,
+       url : ROUTE_USERS + "/update/" + id + "/" + pseudo + "/" + email + "/" + lastname + "/" + firstname + "/" + address + "/" + birth,
        type : 'PUT',
        dataType : 'json',
     });

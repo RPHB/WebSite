@@ -14,6 +14,13 @@
         </li>
 
         <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Dashboard">
+          <a class="nav-link" href="classement.php">
+            <i class="oi oi-list"></i>
+            <span class="nav-link-text">&nbsp;Classement</span>
+          </a>
+        </li>
+
+        <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Dashboard">
           <a class="nav-link" href="match.php">
             <i class="oi oi-monitor"></i>
             <span class="nav-link-text">&nbsp;Matchs</span>
@@ -30,7 +37,7 @@
         <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Dashboard">
           <a class="nav-link" href="event.php">
             <i class="oi oi-list"></i>
-            <span class="nav-link-text">&nbsp;Competition</span>
+            <span class="nav-link-text">&nbsp;Evenement & Sport</span>
           </a>
         </li>
 
