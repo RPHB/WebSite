@@ -152,10 +152,12 @@ if($_SESSION['pseudo'] == null){
       
     <!-- Bootstrap core JavaScript-->
     <script src="../js/lib/jquery.min.js"></script>
+    <script src="../js/lib/popper.min.js"></script>
     <script src="../js/lib/bootstrap.min.js"></script>
     <script src="../js/lib/sb-admin.min.js"></script>
     <script src="../js/lib/chart.js"></script>
     <script src="../js/lib/sweetalert.js"></script>
+
 
     <script src="../js/config.js"></script>
     <script src="../js/app/dash.js"></script>

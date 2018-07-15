@@ -8,10 +8,10 @@ function getMatchs(){
     });
 }
 
-function deleteMatchs(id){/*
-	return $.ajax({
-       url : ROUTE_MATCHS + "/getAll",
-       type : 'GET',
+function deleteMatchs(id){
+    return $.ajax({
+       url : ROUTE_MATCHS + "/delete/" + id,
+       type : 'DELETE',
        dataType : 'json',
-    });*/
+    });
 }

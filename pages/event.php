@@ -70,6 +70,7 @@ if($_SESSION['pseudo'] == null){
         </div>
 
         <script src="../js/lib/jquery.min.js"></script>
+        <script src="../js/lib/popper.min.js"></script>
         <script src="../js/lib/bootstrap.min.js"></script>
         <script src="../js/lib/sb-admin.js"></script>
         <script src="../js/lib/bootstrap-table.js"></script>

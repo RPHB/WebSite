@@ -11,29 +11,31 @@
 })(jQuery);
 
 function connectMe(){
-    var email = $("#emailConnexion").val();
+    var pseudo = $("#emailConnexion").val();
     var pwd = $("#pwdConnexion").val();
-    var errrors = 0;
+
+    if(pseudo.length > 0 && pwd.length > 0){
     
-    var myUrl = ROUTE_USERS + "/connect/" + email + "/" + pwd;
-    console.log(email + " " + pwd);
-    
-    $.ajax({
-        url: myUrl,
-        type: "GET",
-    }).done(function(data){
-        data = JSON.parse(data);
-        if(data.res == true){
-            $.ajax({
-            url: "./connexionSessionSet.php",
-            type: "POST",
-            data: {pseudo : email},
-            }).done(function(){
-                document.location.href="./pages/dash.php"
-            });
-        } else {
-            swal("Erreur", "Combinaison Pseudo / Mot de passe incorecte", "error");
-        }
-    });
+        var myUrl = ROUTE_USERS + "/webconnect/" + pseudo + "/" + pwd;
+        
+        $.ajax({
+            url: myUrl,
+            type: "GET",
+        }).done(function(returndata){
+            if(returndata == "true"){
+                $.ajax({
+                url: "./connexionSessionSet.php",
+                type: "POST",
+                data: {pseudo : pseudo},
+                }).done(function(dataReturned){
+                    document.location.href="./pages/dash.php"
+                });
+            } else {
+                swal("Erreur", "Combinaison Pseudo / Mot de passe incorecte", "error");
+            }
+        });
+    } else {
+        swal("Erreur", "Combinaison Pseudo / Mot de passe incorecte", "error");
+    }
 
 }
